@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 
-# Load the data
+# Load data
 file_path = "university_student_dashboard_data.csv"
 data = pd.read_csv(file_path)
 
@@ -21,7 +21,7 @@ avg_retention = filtered_data['Retention Rate (%)'].mean()
 avg_satisfaction = filtered_data['Student Satisfaction (%)'].mean()
 
 # Display KPIs
-st.title("University Dashboard")
+st.title("University Dashboard Academic Years 2015-2024")
 st.metric("Total Applications", total_apps)
 st.metric("Total Admitted", total_admitted)
 st.metric("Total Enrolled", total_enrolled)
