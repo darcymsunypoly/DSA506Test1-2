@@ -41,13 +41,13 @@ fig2 = px.line(filtered_data, x='Year', y=['Retention Rate (%)', 'Student Satisf
                title='Retention Rate and Satisfaction Trends')
 st.plotly_chart(fig2)
 
-# Enrollment breakdown by department
+# Enrollment breakdown by department (ensure no sum of Spring and Fall terms)
 dept_columns = ['Engineering Enrolled', 'Business Enrolled', 'Arts Enrolled', 'Science Enrolled']
 
 dept_df = filtered_data[['Year', 'Term'] + dept_columns].melt(id_vars=['Year', 'Term'], 
                                                                var_name='Department', value_name='Enrolled')
 fig3 = px.bar(dept_df, x='Year', y='Enrolled', color='Department', 
-              title='Enrollment Breakdown by Department')
+              title='Enrollment Breakdown by Department', barmode='stack')
 st.plotly_chart(fig3)
 
 # Department trends comparison
