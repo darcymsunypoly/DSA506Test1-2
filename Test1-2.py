@@ -44,8 +44,8 @@ st.plotly_chart(fig2)
 # Enrollment breakdown by department
 dept_columns = ['Engineering Enrolled', 'Business Enrolled', 'Arts Enrolled', 'Science Enrolled']
 
-dept_df = filtered_data[['Year'] + dept_columns].melt(id_vars=['Year'], 
-                                                       var_name='Department', value_name='Enrolled')
+dept_df = filtered_data[['Year', 'Term'] + dept_columns].melt(id_vars=['Year', 'Term'], 
+                                                               var_name='Department', value_name='Enrolled')
 fig3 = px.bar(dept_df, x='Year', y='Enrolled', color='Department', 
               title='Enrollment Breakdown by Department')
 st.plotly_chart(fig3)
