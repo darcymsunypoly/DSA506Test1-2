@@ -50,12 +50,13 @@ fig3 = px.bar(dept_df, x='Year', y='Enrolled', color='Department',
               title='Enrollment Breakdown by Department')
 st.plotly_chart(fig3)
 
+# Department trends comparison
+fig5 = px.line(dept_df, x='Year', y='Enrolled', color='Department',
+               title='Department Enrollment Trends Over Time')
+st.plotly_chart(fig5)
+
 # Spring vs. Fall term trends comparison
 fig4 = px.bar(filtered_data, x='Year', y='Enrolled', color='Term', barmode='group',
               title='Spring vs. Fall Enrollment Trends')
 st.plotly_chart(fig4)
 
-# Department trends comparison
-fig5 = px.line(dept_df, x='Year', y='Enrolled', color='Department',
-               title='Department Enrollment Trends Over Time')
-st.plotly_chart(fig5)
