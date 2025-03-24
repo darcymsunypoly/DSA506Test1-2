@@ -13,12 +13,15 @@ selected_year = st.sidebar.multiselect('Select Year', years, default=years)
 # Filter data based on selection
 filtered_data = data[data['Year'].isin(selected_year)]
 
-# KPIs
-total_apps = filtered_data['Applications'].sum()
-total_admitted = filtered_data['Admitted'].sum()
-total_enrolled = filtered_data['Enrolled'].sum()
-avg_retention = filtered_data['Retention Rate (%)'].mean()
-avg_satisfaction = filtered_data['Student Satisfaction (%)'].mean()
+# Ensure we are using only Spring term values (since Spring and Fall are the same for each year)
+filtered_data_spring = filtered_data[filtered_data['Term'] == 'Spring']
+
+# KPIs based on Spring term for each year
+total_apps = filtered_data_spring['Applications'].sum()
+total_admitted = filtered_data_spring['Admitted'].sum()
+total_enrolled = filtered_data_spring['Enrolled'].sum()
+avg_retention = filtered_data_spring['Retention Rate (%)'].mean()
+avg_satisfaction = filtered_data_spring['Student Satisfaction (%)'].mean()
 
 # Display KPIs
 st.title("University Dashboard Academic Years 2015-2024")
