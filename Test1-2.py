@@ -58,7 +58,7 @@ dept_df = filtered_data_term[['Year', 'Term'] + dept_columns].melt(id_vars=['Yea
                                                                    var_name='Department', value_name='Enrolled')
 
 fig3 = px.bar(dept_df, x='Year', y='Enrolled', color='Department', 
-              title=f'Enrollment Breakdown by Department ({selected_term} Term)', barmode='stack')
+              title=f'Enrollment Breakdown by Department', barmode='stack')
 st.plotly_chart(fig3)
 
 # Department trends comparison
