@@ -8,12 +8,10 @@ data = pd.read_csv(file_path)
 
 # Sidebar filters
 years = data['Year'].unique()
-terms = data['Term'].unique()
 selected_year = st.sidebar.multiselect('Select Year', years, default=years)
-selected_term = st.sidebar.multiselect('Select Term', terms, default=terms)
 
 # Filter data based on selection
-filtered_data = data[(data['Year'].isin(selected_year)) & (data['Term'].isin(selected_term))]
+filtered_data = data[data['Year'].isin(selected_year)]
 
 # KPIs
 total_apps = filtered_data['Applications'].sum()
@@ -32,21 +30,23 @@ st.metric("Avg. Satisfaction Score", f"{avg_satisfaction:.2f}%")
 
 # Visualizations
 # Applications, Admissions, Enrollments over time
-fig1 = px.line(filtered_data, x='Year', y=['Applications', 'Admitted', 'Enrolled'], color='Term', 
+fig1 = px.line(filtered_data, x='Year', y=['Applications', 'Admitted', 'Enrolled'],
+               labels={'value': 'Count', 'variable': 'Metric'},
                title='Applications, Admissions, and Enrollments Over Time')
 st.plotly_chart(fig1)
 
 # Retention Rate and Satisfaction over time
-fig2 = px.line(filtered_data, x='Year', y=['Retention Rate (%)', 'Student Satisfaction (%)'], color='Term',
+fig2 = px.line(filtered_data, x='Year', y=['Retention Rate (%)', 'Student Satisfaction (%)'],
+               labels={'value': 'Percentage', 'variable': 'Metric'},
                title='Retention Rate and Satisfaction Trends')
 st.plotly_chart(fig2)
 
 # Enrollment breakdown by department
 dept_columns = ['Engineering Enrolled', 'Business Enrolled', 'Arts Enrolled', 'Science Enrolled']
 
-dept_df = filtered_data[['Year', 'Term'] + dept_columns].melt(id_vars=['Year', 'Term'], 
-                                                              var_name='Department', value_name='Enrolled')
-fig3 = px.bar(dept_df, x='Year', y='Enrolled', color='Department', facet_col='Term', 
+dept_df = filtered_data[['Year'] + dept_columns].melt(id_vars=['Year'], 
+                                                       var_name='Department', value_name='Enrolled')
+fig3 = px.bar(dept_df, x='Year', y='Enrolled', color='Department', 
               title='Enrollment Breakdown by Department')
 st.plotly_chart(fig3)
 
@@ -56,6 +56,6 @@ fig4 = px.bar(filtered_data, x='Year', y='Enrolled', color='Term', barmode='grou
 st.plotly_chart(fig4)
 
 # Department trends comparison
-fig5 = px.line(dept_df, x='Year', y='Enrolled', color='Department', line_group='Term',
+fig5 = px.line(dept_df, x='Year', y='Enrolled', color='Department',
                title='Department Enrollment Trends Over Time')
 st.plotly_chart(fig5)
